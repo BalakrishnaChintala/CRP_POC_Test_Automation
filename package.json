@@ -325,9 +325,6 @@
       "resolved": "https://registry.npmjs.org/globby/-/globby-5.0.0.tgz",
       "version": "5.0.0"
     },
-    "scripts": {
-      "gulp": "gulp"
-    },
     "gulp-cli": "^2.2.0",
     "gulp-teamcity-reporter": "^1.1.1",
     "gulp-watch": "^5.0.1",
@@ -546,6 +543,7 @@
       "resolved": "https://registry.npmjs.org/ms/-/ms-2.1.2.tgz",
       "version": "2.1.2"
     },
+    "node-powershell": "^4.0.0",
     "oauth-sign": {
       "integrity": "sha512-fexhUFFPTGV8ybAtSIGbV6gOkSv8UtRbDBnAyLQw4QPKkgNlsH2ByPGtMUqdWkos6YCRmAqViwgZrJc/mRDzZQ==",
       "resolved": "https://registry.npmjs.org/oauth-sign/-/oauth-sign-0.9.0.tgz",
@@ -616,6 +614,7 @@
       "resolved": "https://registry.npmjs.org/pinkie-promise/-/pinkie-promise-2.0.1.tgz",
       "version": "2.0.1"
     },
+    "powershell": "^2.3.1",
     "process-nextick-args": {
       "integrity": "sha512-3ouUOpQhtgrbOa17J7+uxOTpITYWaGP7/AhoR3+A+/1e9skrzelGi/dXzEYyvbxubEF6Wn2ypscTKiKJFFn1ag==",
       "resolved": "https://registry.npmjs.org/process-nextick-args/-/process-nextick-args-2.0.1.tgz",
@@ -713,6 +712,9 @@
       "integrity": "sha512-NqVDv9TpANUjFm0N8uM5GxL36UgKi9/atZw+x7YFnQ8ckwFGKrl4xX4yWtrey3UJm5nP1kUbnYgLopqWNSRhWw==",
       "resolved": "https://registry.npmjs.org/sax/-/sax-1.2.4.tgz",
       "version": "1.2.4"
+    },
+    "scripts": {
+      "gulp": "gulp"
     },
     "selenium-chromedriver": "0.0.2",
     "selenium-standalone-jar": "^3.141.59",
