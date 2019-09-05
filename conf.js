@@ -1,5 +1,5 @@
 var HtmlReporter = require('protractor-beautiful-reporter');
-//var Jasmine2HtmlReporter = require('protractor-jasmine2-html-reporter');
+var Jasmine2HtmlReporter = require('protractor-jasmine2-html-reporter');
 
 exports.config = {
     //seleniumAddress: 'http://localhost:4444/wd/hub',
@@ -16,7 +16,11 @@ exports.config = {
             jasmine.getEnv().addReporter(new HtmlReporter({
                 baseDirectory: 'TestReports/screenshots'
              }).getJasmine2Reporter());
+             {
+             var jasmineReporters = require('jasmine-reporters');
+             jasmine.getEnv().addReporter(new jasmineReporters.TeamCityReporter());
          }
+        }
      }
 
      
