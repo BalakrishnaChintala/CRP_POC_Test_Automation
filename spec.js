@@ -27,7 +27,6 @@ describe('CRP Create TOC', function()
     beforeEach(function()
     {
 
-    browser.waitForAngularEnabled(false);
     browser.get('http://10.96.153.168:4200');
     browser.driver.manage().window().maximize();
     });
