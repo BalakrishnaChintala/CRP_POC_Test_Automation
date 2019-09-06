@@ -15,7 +15,7 @@ const fse = require('fs-extra');
 function storeScreenShot(data, file) {
     try {
         fse.outputFileSync(file, data, {encoding: 'base64'});
-    } catch (e) {
+    } catch(e) {
         console.error(e);
         console.error('Could not save image: ', file);
     }
@@ -29,6 +29,34 @@ function cleanArray(actual) {
         }
     }
     return newArray;
+}
+
+function stringifyHtml(source){
+    var quote = '\'';
+    var res=source.split(/^/gm).map(function(line) {
+        //var quote = '"';
+        line = line.replace(/\\/g, '\\\\');
+        line = line.replace(/\r/g, '');
+        line = line.replace(/\n/g, '');
+        // line = line.replace(/\n/g, '\\n');
+        // line = line.replace(/\r/g, '\\r');
+        var quoteRegExp = new RegExp(quote, 'g');
+        line = line.replace(quoteRegExp, '\\' + quote);
+        if(line.length>0){
+            return quote + line + "\\n"+ quote +" +\n    ";
+        }
+        return "";
+    }).join('') || '""';
+
+    return res+" "+quote+quote;
+}
+
+function buildTemplateJs(file) {
+    var templateName = path.basename(file);
+    var template = fs.readFileSync(file)
+        .toString();
+    var stemplate=stringifyHtml(template);
+    return "\n  $templateCache.put('" + templateName + "',\n    " + stemplate + "\n  );\n";
 }
 
 /**
@@ -67,9 +95,11 @@ function addHTMLReport(jsonData, baseName, options) {
             //copy bootstrap fonts
             fse.copySync(path.join(__dirname, 'lib', 'fonts'), path.join(basePath, 'fonts'));
 
-            //copy templates
-            fs.copyFileSync(path.join(__dirname, 'lib', 'pbr-screenshot-modal.html'), path.join(basePath,'pbr-screenshot-modal.html'));
-            fs.copyFileSync(path.join(__dirname, 'lib', 'pbr-stack-modal.html'), path.join(basePath,'pbr-stack-modal.html'));
+            if (options.clientDefaults && options.clientDefaults.useAjax) {
+                //copy templates
+                fs.copyFileSync(path.join(__dirname, 'lib', 'pbr-screenshot-modal.html'), path.join(basePath, 'pbr-screenshot-modal.html'));
+                fs.copyFileSync(path.join(__dirname, 'lib', 'pbr-stack-modal.html'), path.join(basePath, 'pbr-stack-modal.html'));
+            }
 
             // Construct index.html
             streamHtml = fs.createWriteStream(htmlFile);
@@ -89,10 +119,16 @@ function addHTMLReport(jsonData, baseName, options) {
 
         //prepare clientDefaults for serializations
         var jsonDataString;
+        //templates replacement
+        var templater;
         if (options.clientDefaults && options.clientDefaults.useAjax) {
             jsonDataString = "[]";
+            templater = "";
         } else {
             jsonDataString = JSON.stringify(jsonData, null, 4);
+            templater = "";
+            templater += buildTemplateJs(path.join(__dirname, 'lib', 'pbr-screenshot-modal.html'));
+            templater += buildTemplateJs(path.join(__dirname, 'lib', 'pbr-stack-modal.html'));
         }
 
 
@@ -102,10 +138,11 @@ function addHTMLReport(jsonData, baseName, options) {
                 .replace('\[\];//\'<Results Replacement>\'', jsonDataString)
                 .replace('defaultSortFunction/*<Sort Function Replacement>*/', options.sortFunction.toString())
                 .replace('{};//\'<Client Defaults Replacement>\'', JSON.stringify(options.clientDefaults, null, 4))
+                .replace("//'<templates replacement>';", templater)
         );
 
         streamJs.end();
-    } catch (e) {
+    } catch(e) {
         console.error(e);
         console.error('Could not save combined.js for data: ' + jsonData);
     }
@@ -128,7 +165,7 @@ function addMetaData(test, baseName, options) {
             fs.mkdirSync(lock);
         } catch(e) {
             // delay if one write operation is pending
-            if(e.code === 'EEXIST')  {
+            if (e.code === 'EEXIST') {
                 setTimeout(function () {
                     addMetaData(test, baseName, options);
                 }, 200);
@@ -155,7 +192,7 @@ function addMetaData(test, baseName, options) {
 
         fs.rmdirSync(lock);
 
-    } catch (e) {
+    } catch(e) {
         console.error(e);
         console.error('Could not save JSON for data: ' + test);
     }
@@ -173,7 +210,7 @@ function storeMetaData(metaData, file, descriptions) {
     try {
         metaData.description = cleanArray(descriptions).join('|');
         fse.outputJsonSync(file, metaData);
-    } catch (e) {
+    } catch(e) {
         console.error(e);
         console.error('Could not save meta data for ' + file);
     }
@@ -243,8 +280,7 @@ function removeDirectory(dirPath) {
     let files;
     try {
         files = fs.readdirSync(dirPath);
-    }
-    catch (e) {
+    } catch(e) {
         return;
     }
     if (files.length > 0) {
@@ -252,8 +288,7 @@ function removeDirectory(dirPath) {
             const filePath = dirPath + '/' + files[i];
             if (fs.statSync(filePath).isFile()) {
                 fs.unlinkSync(filePath);
-            }
-            else {
+            } else {
                 removeDirectory(filePath);
             }
         }

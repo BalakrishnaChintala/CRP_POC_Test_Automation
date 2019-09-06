@@ -445,7 +445,8 @@ app.factory('TitleService', ['$document', function ($document) {
 
 
 app.run(
-    function ($rootScope) {
+    function ($rootScope, $templateCache) {
         //make sure this option is on by default
         $rootScope.showSmartStackTraceHighlight = true;
+        //'<templates replacement>';
     });

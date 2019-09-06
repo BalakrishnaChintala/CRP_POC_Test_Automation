@@ -1,5 +1,6 @@
 # Changelog
-
+## Version 1.3.1
+* Fixed: Template files could not be loaded because of CORS violation when run from filesystem
 ## Version 1.3.0
 * Fixed: Navigation in screenshot dialog jumped to non-existing images 
 * Added: Keyboard navigation in screenshot dialog with left/right arrow keys 

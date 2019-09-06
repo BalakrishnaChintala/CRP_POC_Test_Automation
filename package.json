@@ -179,11 +179,7 @@
       "resolved": "https://registry.npmjs.org/concat-map/-/concat-map-0.0.1.tgz",
       "version": "0.0.1"
     },
-    "core-util-is": {
-      "integrity": "sha1-tf1UIgqivFq1eqtxQMlAdUUDwac=",
-      "resolved": "https://registry.npmjs.org/core-util-is/-/core-util-is-1.0.2.tgz",
-      "version": "1.0.2"
-    },
+    "core-util-is": "^1.0.2",
     "dashdash": {
       "integrity": "sha1-hTz6D3y+L+1d4gMmuN1YEDX24vA=",
       "requires": {
@@ -868,6 +864,7 @@
       "resolved": "https://registry.npmjs.org/webdriver-js-extender/-/webdriver-js-extender-2.1.0.tgz",
       "version": "2.1.0"
     },
+    "webpack-dev-server": "^3.8.0",
     "wordwrap": {
       "integrity": "sha1-o9XabNXAvAAI03I0u68b7WMFkQc=",
       "resolved": "https://registry.npmjs.org/wordwrap/-/wordwrap-0.0.3.tgz",
@@ -900,6 +897,7 @@
     "gulp": "^4.0.2",
     "gulp-angular-protractor": "^2.0.0",
     "gulp-protractor": "^4.1.1",
+    "gulp-util": "^3.0.8",
     "jasmine-core": "^3.4.0",
     "jasmine-reporters": "^2.0.0",
     "karma": "^4.3.0",
