@@ -36,7 +36,7 @@ describe('CRP Create TOC', function()
     {
         createAssemblynewApplication.click();
         browser.driver.sleep(1000);
-        applicationDescription.sendKeys('Paracetomol 250mg Submission US');
+        applicationDescription.sendKeys('Ibrufen 100mg Submission US');
         browser.driver.sleep(1000);
         applicationNumber.sendKeys('12345');
         browser.driver.sleep(1000);
