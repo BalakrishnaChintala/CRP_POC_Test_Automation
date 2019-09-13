@@ -32,7 +32,7 @@ describe('CRP Create TOC', function()
     });
 
     //test case 1
-    it('create asemby as new application', function()
+    it('create assembly as new application', function()
     {
         createAssemblynewApplication.click();
         browser.driver.sleep(1000);
